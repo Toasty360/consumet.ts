@@ -125,8 +125,10 @@ test('returns a filled object of anime data', async () => {
 });
 
 test('returns a filled object of episode sources', async () => {
-  const res = await zoro.search('Overlord IV');
-  const info = await zoro.fetchAnimeInfo(res.results[3].id);
-  const data = await zoro.fetchEpisodeSources(info.episodes![0].id); // Overlord IV episode 1 id
+  const res = await zoro.search("I'm a Noble on the Brink of Ruin, So I Might as Well Try Mastering Magic");
+  const info = await zoro.fetchAnimeInfo(res.results[0].id);
+  console.log(info.episodes!.pop()!.id);
+
+  const data = await zoro.fetchEpisodeSources(info.episodes!.pop()!.id);
   expect(data.sources).not.toEqual([]);
 });

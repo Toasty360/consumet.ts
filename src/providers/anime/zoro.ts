@@ -588,10 +588,13 @@ class Zoro extends AnimeParser {
   };
 
   private retrieveServerId = ($: any, index: number, subOrDub: 'sub' | 'dub') => {
-    return $(`.ps_-block.ps_-block-sub.servers-${subOrDub} > .ps__-list .server-item`)
+    const possibleServers = $(`.ps_-block.ps_-block-sub.servers-${subOrDub} > .ps__-list .server-item`)
       .map((i: any, el: any) => ($(el).attr('data-server-id') == `${index}` ? $(el) : null))
-      .get()[0]
-      .attr('data-id')!;
+      .get();
+    if (possibleServers.length == 0) {
+      return $('div[data-type="raw"]').attr('data-id');
+    }
+    return possibleServers[0].attr('data-id')!;
   };
 
   /**
